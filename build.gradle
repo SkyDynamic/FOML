@@ -1,31 +1,32 @@
 plugins {
-    id 'fabric-loom' version '1.4-SNAPSHOT' apply false
+    id 'fabric-loom' version '1.4-SNAPSHOT'
 }
 
-allprojects {
-    apply plugin: 'fabric-loom'
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
 
-    // Java
-    java {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
-    }
-    tasks.withType(JavaCompile) {
-        options.encoding = 'UTF-8'
-    }
+group = project.mod_group
+archivesBaseName = project.mod_name
+version = project.mod_version
 
-    // Project
-    group = project.mod_group
-    archivesBaseName = project.mod_name
-    version = project.mod_version
+// Dependencies
+dependencies {
+    minecraft "com.mojang:minecraft:${mc_version}"
+    mappings "net.fabricmc:yarn:${yarn_mappings}"
+    modImplementation "net.fabricmc:fabric-loader:${loader_version}"
+    modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_version}"
 
-    // Dependencies
-    dependencies {
-        minecraft "com.mojang:minecraft:${mc_version}"
-        mappings "net.fabricmc:yarn:${yarn_mappings}"
-        modImplementation "net.fabricmc:fabric-loader:${loader_version}"
-        modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_version}"
-    }
+    implementation "de.javagl:obj:0.3.0"
+    include "de.javagl:obj:0.3.0"
+}
+
+loom {
+    accessWidenerPath = file("src/main/resources/foml.accesswidener")
 }
 
 subprojects {
@@ -37,8 +38,7 @@ subprojects {
                         "Implementation-Title": project.name,
                         "Implementation-Version": project.version,
                         "Maven-Artifact": "${project.group}:${project.archivesBaseName}:${project.version}".toLowerCase(Locale.ROOT),
-                        "Built-On-Minecraft": "${mc_version}",
-                        "Built-On-Java": "${System.getProperty("java.vm.version")} (${System.getProperty("java.vm.vendor")})"
+                        "Built-On-Minecraft": "${mc_version}"
                 ])
             }
         }

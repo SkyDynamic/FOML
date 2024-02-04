@@ -14,6 +14,7 @@
   "license": "MIT",
   "icon": "assets/foml/icon.png",
   "environment": "*",
+  "accessWidener" : "foml.accesswidener",
   "entrypoints": {
     "client": [
       "dev.onyxstudios.foml.FOML"

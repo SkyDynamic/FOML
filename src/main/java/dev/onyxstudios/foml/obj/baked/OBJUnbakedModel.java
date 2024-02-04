@@ -1,6 +1,5 @@
 package dev.onyxstudios.foml.obj.baked;
 
-import com.mojang.datafixers.util.Pair;
 import de.javagl.obj.FloatTuple;
 import de.javagl.obj.Mtl;
 import de.javagl.obj.Obj;
