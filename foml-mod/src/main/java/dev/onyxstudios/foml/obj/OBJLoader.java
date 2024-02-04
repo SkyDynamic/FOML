@@ -49,13 +49,13 @@ public class OBJLoader implements ModelResourceProvider, Function<ResourceManage
         for (String name : mtlNames) {
             Identifier resourceId = new Identifier(modid, "models/" + name);
             // Use 1.0.0 MTL path as a fallback
-            if (!manager.containsResource(resourceId)) {
+            if (manager.getResource(resourceId).isEmpty()) {
                 resourceId = new Identifier(modid, "models/block/" + name);
             }
 
             // Continue with normal resource loading code
-            if(manager.containsResource(resourceId)) {
-                Resource resource = manager.getResource(resourceId);
+            if(manager.getResource(resourceId).isPresent()) {
+                Resource resource = manager.getResource(resourceId).get();
 
                 MtlReader.read(resource.getInputStream()).forEach(mtl -> {
                     mtls.put(mtl.getName(), mtl);
@@ -78,7 +78,7 @@ public class OBJLoader implements ModelResourceProvider, Function<ResourceManage
         if(identifier.getPath().endsWith(".obj")) {
             ResourceManager resourceManager = MinecraftClient.getInstance().getResourceManager();
 
-            try (Reader reader = new InputStreamReader(resourceManager.getResource(new Identifier(identifier.getNamespace(), "models/" + identifier.getPath())).getInputStream())) {
+            try (Reader reader = new InputStreamReader(resourceManager.getResource(new Identifier(identifier.getNamespace(), "models/" + identifier.getPath())).get().getInputStream())) {
                 return loadModel(reader, identifier.getNamespace(), resourceManager, transform);
             } catch (IOException e) {
                 FOML.LOGGER.error("Unable to load OBJ Model, Source: " + identifier.toString(), e);

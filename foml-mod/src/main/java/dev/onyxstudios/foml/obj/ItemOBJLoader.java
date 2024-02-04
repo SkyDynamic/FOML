@@ -41,8 +41,8 @@ public class ItemOBJLoader implements ModelVariantProvider, Function<ResourceMan
             Identifier modelPath = new Identifier (modelId.getNamespace (),
                     "models/item/" + modelId.getPath () + ".json");
 
-            if (resourceManager.containsResource(modelPath)) {
-                try (Reader reader = new InputStreamReader(resourceManager.getResource(modelPath).getInputStream())) {
+            if (resourceManager.getResource(modelPath).isPresent()) {
+                try (Reader reader = new InputStreamReader(resourceManager.getResource(modelPath).get().getInputStream())) {
                     JsonObject rawModel = JsonHelper.deserialize(reader);
 
                     JsonElement parent = rawModel.get("parent");

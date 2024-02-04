@@ -11,4 +11,4 @@ pluginManagement {
 
 rootProject.name = 'foml-root'
 
-include 'foml-mod', 'foml-test'
+include 'foml-mod'

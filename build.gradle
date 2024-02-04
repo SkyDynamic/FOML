@@ -1,5 +1,5 @@
 plugins {
-    id 'fabric-loom' version '0.5-SNAPSHOT' apply false
+    id 'fabric-loom' version '1.4-SNAPSHOT' apply false
 }
 
 allprojects {
@@ -7,8 +7,8 @@ allprojects {
 
     // Java
     java {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     tasks.withType(JavaCompile) {
         options.encoding = 'UTF-8'
@@ -23,8 +23,8 @@ allprojects {
     dependencies {
         minecraft "com.mojang:minecraft:${mc_version}"
         mappings "net.fabricmc:yarn:${yarn_mappings}"
-        modCompile "net.fabricmc:fabric-loader:${loader_version}"
-        modCompile "net.fabricmc.fabric-api:fabric-api:${fabric_version}"
+        modImplementation "net.fabricmc:fabric-loader:${loader_version}"
+        modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_version}"
     }
 }
 
