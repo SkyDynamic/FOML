@@ -1,18 +1,18 @@
 plugins {
     id 'fabric-loom' version '1.4-SNAPSHOT'
-    id "maven-publish"
+    id 'maven-publish'
 }
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_17
-    targetCompatibility = JavaVersion.VERSION_17
+    withSourcesJar()
+    withJavadocJar()
 }
+
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
 }
 
 group = project.mod_group
-archivesBaseName = project.mod_name
 version = project.mod_version
 
 // Dependencies
@@ -64,14 +64,12 @@ subprojects {
 
 publishing {
     publications {
-        mavenJava(MavenPublication) {
+        maven(MavenPublication) {
             from components.java
         }
     }
-
-    // select the repositories you want to publish to
-    repositories {
-        // uncomment to publish to the local maven
-        // mavenLocal()
-    }
+}
+wrapper {
+    gradleVersion = "8.3"
+    distributionType = Wrapper.DistributionType.ALL
 }
